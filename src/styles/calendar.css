@@ -1,0 +1,9 @@
+.react-calendar {
+  width: 100%;
+}
+.react-calendar button {
+  font-size: 1rem;
+}
+.react-calendar abbr {
+  text-decoration: none;
+}
