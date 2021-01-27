@@ -20,7 +20,7 @@ const CopyButton = () => {
         disableElevation
         style={{ height: "9.2vh" }}
       >
-        COPY TO CLIPBOARD
+        COPY
       </Button>
     </div>
   );

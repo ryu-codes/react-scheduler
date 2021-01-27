@@ -71,14 +71,17 @@ const App = () => {
         container
         spacing={1}
         justify="center"
-        style={{ marginTop: "1rem", height: "90%", padding: 30 }}
+        style={{ marginTop: "1rem", padding: 30 }}
       >
+        <Grid item xs={0} sm={3}></Grid>
         <Grid item xs={12} sm={6} style={{ height: "35vh" }}>
           <Paper style={{ textAlign: "center", height: "100%" }}>
             <Calendar addDate={addDate} />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={4} style={{ height: "35vh" }}>
+        <Grid item xs={0} sm={3}></Grid>
+
+        <Grid item xs={12} sm={3} style={{ height: "10vh" }}>
           <Paper style={{ textAlign: "center", height: "100%" }}>
             <DateList
               dates={dates}
@@ -87,12 +90,12 @@ const App = () => {
             />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} style={{ height: "10vh" }}>
+        <Grid item xs={12} sm={2} style={{ height: "10vh" }}>
           <Paper style={{ textAlign: "center", height: "100%" }}>
             <DateTextArea dates={dates} />
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={4} style={{ height: "10vh" }}>
+        <Grid item xs={12} sm={1} style={{ height: "10vh" }}>
           <Paper style={{ textAlign: "center", height: "100%" }}>
             <CopyButton />
           </Paper>
