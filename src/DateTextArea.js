@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import { formatDate } from "./helpers";
+import { LanguageContext } from "./contexts/LanguageContexts";
 
-const DateTextArea = ({ dates }) => {
+const DateTextArea = ({ dates, preSentence }) => {
   const sortedDates = dates.slice().sort((a, b) => a.date - b.date);
+  const { language } = useContext(LanguageContext);
+
+  const formattedDate = (date) => {
+    const [monthFormat, dateFormat, dayOfWeekFormat] = formatDate(date);
+    const dayOfWeekStr = (language === "jp"
+      ? ["日", "月", "火", "水", "木", "金", "土"]
+      : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])[dayOfWeekFormat];
+    const formattedDate =
+      language === "jp"
+        ? `${monthFormat}月${dateFormat}日(${dayOfWeekStr})`
+        : `${monthFormat}/${dateFormat} (${dayOfWeekStr})`;
+    return formattedDate;
+  };
   // TODO: Add customizable list style for bullet
   // prettier-ignore
-  const formattedDate = sortedDates.map(
-    (date) => `・${formatDate(date.date)} ${date.startHour}:${date.startMinute} - ${date.endHour}:${date.endMinute}`
+  const strDate = sortedDates.map(
+    (date) => `・${formattedDate(date.date)} ${date.startHour}:${date.startMinute} - ${date.endHour}:${date.endMinute}`
   );
-  const strDate = formattedDate.join("\n");
+  const textAreaDate = strDate.join("\n");
 
   return (
     <textarea
-      placeholder="TextArea"
+      // placeholder={preSentence}
       name=""
       id="textToCopy"
       cols="30"
       rows="10"
       style={{ height: "95%", width: "98%", border: "none" }}
-      value={strDate}
+      value={`${preSentence}\n${textAreaDate}`}
       readOnly
     ></textarea>
   );

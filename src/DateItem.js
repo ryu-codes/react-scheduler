@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   ListItem,
   ListItemText,
@@ -6,8 +6,28 @@ import {
   IconButton,
   TextField,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { formatDate } from "./helpers";
-import { Delete } from "@material-ui/icons";
+import { LanguageContext } from "./contexts/LanguageContexts";
+import { Delete, Schedule } from "@material-ui/icons";
+
+const useStyles = makeStyles({
+  root: {
+    "& .MuiInput-underline:before": {
+      borderBottomWidth: "0px",
+    },
+    "& .MuiSelect-select.MuiSelect-select": {
+      padding: "2px",
+    },
+    "& .MuiInputBase-input": {
+      height: "1rem",
+    },
+  },
+});
+
+const iconComponent = () => {
+  return null;
+};
 
 const DateItem = ({
   date,
@@ -33,13 +53,33 @@ const DateItem = ({
   ];
   const minuteOptions = ["00", "15", "30", "45"];
 
+  const classes = useStyles();
+
+  const { language } = useContext(LanguageContext);
+
+  const formattedDate = (date) => {
+    const [monthFormat, dateFormat, dayOfWeekFormat] = formatDate(date);
+    const dayOfWeekStr = (language === "jp"
+      ? ["日", "月", "火", "水", "木", "金", "土"]
+      : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])[dayOfWeekFormat];
+    const formattedDate =
+      language === "jp"
+        ? `${monthFormat}月${dateFormat}日(${dayOfWeekStr})`
+        : `${monthFormat}/${dateFormat} (${dayOfWeekStr})`;
+    return formattedDate;
+  };
+
   return (
-    <ListItem>
-      <ListItemText>{formatDate(date)}</ListItemText>
+    <ListItem style={{ height: "30px" }}>
+      <ListItemText>{formattedDate(date)}</ListItemText>
+      <IconButton size="small" disableFocusRipple>
+        <Schedule style={{ fontSize: "1rem" }} />
+      </IconButton>
       <form noValidate>
         {/* StartHour */}
         <TextField
           id={id}
+          className={classes.root}
           select
           value={startHour}
           onChange={(e) =>
@@ -47,12 +87,8 @@ const DateItem = ({
           }
           SelectProps={{
             native: true,
-            // TODO: Hide the downward arrow of select
-            // style: {
-            //   WebkitAppearance: "none",
-            //   MozAppearance: "none",
-            //   appearance: "none",
-            // },
+            // Hiding the downward arrow of select
+            IconComponent: iconComponent,
           }}
         >
           {hourOptions.map((op) => (
@@ -61,18 +97,20 @@ const DateItem = ({
             </option>
           ))}
         </TextField>
+        <span>:</span>
         {/* StartMinute */}
         <TextField
           id={id}
+          className={classes.root}
           select
           label=""
           value={startMinute}
-          // style={{ marginRight: "1rem" }}
           onChange={(e) =>
             updateTime(id, startHour, e.target.value, endHour, endMinute)
           }
           SelectProps={{
             native: true,
+            IconComponent: iconComponent,
           }}
         >
           {minuteOptions.map((op) => (
@@ -82,12 +120,16 @@ const DateItem = ({
           ))}
         </TextField>
       </form>
-      {/* TODO: Put dash between start and end */}
-      <span style={{ fontSize: "2rem" }}>-</span>
+      {/* Dash between start and end */}
+      <span style={{ fontSize: "1rem" }}>-</span>
+      <IconButton size="small" disableFocusRipple>
+        <Schedule style={{ fontSize: "1rem" }} />
+      </IconButton>
       <form noValidate>
         {/* EndHour */}
         <TextField
           id={id}
+          className={classes.root}
           select
           value={endHour}
           onChange={(e) =>
@@ -95,6 +137,7 @@ const DateItem = ({
           }
           SelectProps={{
             native: true,
+            IconComponent: iconComponent,
           }}
         >
           {hourOptions.map((op) => (
@@ -103,9 +146,11 @@ const DateItem = ({
             </option>
           ))}
         </TextField>
+        <span>:</span>
         {/* EndMinute */}
         <TextField
           id={id}
+          className={classes.root}
           select
           label=""
           value={endMinute}
@@ -114,6 +159,7 @@ const DateItem = ({
           }
           SelectProps={{
             native: true,
+            IconComponent: iconComponent,
           }}
         >
           {minuteOptions.map((op) => (
@@ -124,7 +170,11 @@ const DateItem = ({
         </TextField>
       </form>
       <ListItemSecondaryAction>
-        <IconButton aria-label="Delete" onClick={() => removeDate(id)}>
+        <IconButton
+          aria-label="Delete"
+          onClick={() => removeDate(id)}
+          size="small"
+        >
           <Delete />
         </IconButton>
       </ListItemSecondaryAction>

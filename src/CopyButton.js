@@ -18,7 +18,7 @@ const CopyButton = () => {
         startIcon={<FileCopyOutlinedIcon />}
         fullWidth
         disableElevation
-        style={{ height: "9.2vh" }}
+        // style={{ height: "9.2vh" }}
       >
         COPY
       </Button>

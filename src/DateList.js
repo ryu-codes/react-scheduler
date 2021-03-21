@@ -6,7 +6,7 @@ const DateList = ({ dates, removeDate, updateTime }) => {
   const sortedDates = dates.slice().sort((a, b) => a.date - b.date);
   if (dates.length)
     return (
-      <List style={{ maxHeight: "100%", overflow: "auto" }}>
+      <List style={{ maxHeight: "100%", overflow: "auto", padding: "0" }}>
         {sortedDates.map((date, index) => (
           <React.Fragment key={date.id}>
             <DateItem
@@ -20,7 +20,7 @@ const DateList = ({ dates, removeDate, updateTime }) => {
               endHour={date.endHour}
               endMinute={date.endMinute}
             />
-            {index < dates.length - 1 && <Divider />}
+            <Divider />
           </React.Fragment>
         ))}
       </List>
