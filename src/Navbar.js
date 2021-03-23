@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { languageOptions } from "./languages";
 import FormDialog from "./FormDialog";
 import {
   AppBar,
@@ -9,7 +8,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import { LanguageContext } from "./contexts/LanguageContexts";
-import LanguageIcon from "@material-ui/icons/Language";
 
 const Navbar = ({
   preSentence,
@@ -17,11 +15,10 @@ const Navbar = ({
   resetToDefaultPresentence,
 }) => {
   const { language, changeLanguage } = useContext(LanguageContext);
-  // const handleLanguageChange = (e) => languageChange(e.target.value);
 
   const handleLanguageChange = (val) => {
     changeLanguage(val);
-    resetToDefaultPresentence();
+    resetToDefaultPresentence(val);
   };
 
   return (
@@ -33,11 +30,6 @@ const Navbar = ({
           onChange={handleLanguageChange}
           style={{ color: "white" }}
         >
-          {/* {Object.entries(languageOptions).map(([id, name]) => (
-            <MenuItem key={id} value={id}>
-              {name}
-            </MenuItem>
-          ))} */}
           <MenuItem value="jp">日本語</MenuItem>
           <MenuItem value="en">English</MenuItem>
         </Select>

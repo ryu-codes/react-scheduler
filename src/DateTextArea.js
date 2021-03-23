@@ -8,14 +8,15 @@ const DateTextArea = ({ dates, preSentence }) => {
 
   const formattedDate = (date) => {
     const [monthFormat, dateFormat, dayOfWeekFormat] = formatDate(date);
-    const dayOfWeekStr = (language === "jp"
-      ? ["日", "月", "火", "水", "木", "金", "土"]
-      : ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"])[dayOfWeekFormat];
-    const formattedDate =
-      language === "jp"
-        ? `${monthFormat}月${dateFormat}日(${dayOfWeekStr})`
-        : `${monthFormat}/${dateFormat} (${dayOfWeekStr})`;
-    return formattedDate;
+    const dayOfWeekStr = {
+      jp: ["日", "月", "火", "水", "木", "金", "土"][dayOfWeekFormat],
+      en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][dayOfWeekFormat],
+    };
+    const formattedDate = {
+      jp: `${monthFormat}月${dateFormat}日(${dayOfWeekStr[language]})`,
+      en: `${monthFormat}/${dateFormat} (${dayOfWeekStr[language]})`,
+    };
+    return formattedDate[language];
   };
   // TODO: Add customizable list style for bullet
   // prettier-ignore
@@ -26,7 +27,6 @@ const DateTextArea = ({ dates, preSentence }) => {
 
   return (
     <textarea
-      // placeholder={preSentence}
       name=""
       id="textToCopy"
       cols="30"

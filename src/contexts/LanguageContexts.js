@@ -5,6 +5,7 @@ export const LanguageProvider = (props) => {
     JSON.parse(window.localStorage.getItem("language")) || "jp";
   const [language, setLanguage] = useState(initialLanguage);
   const changeLanguage = (e) => setLanguage(e.target.value);
+
   useEffect(() => {
     window.localStorage.setItem("language", JSON.stringify(language));
   }, [language]);

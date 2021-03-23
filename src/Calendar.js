@@ -1,6 +1,4 @@
 import React, { useContext } from "react";
-// import ReactCalendar from "rc-calendar";
-// import "rc-calendar/assets/index.css";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { LanguageContext } from "./contexts/LanguageContexts";

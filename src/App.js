@@ -15,12 +15,11 @@ const App = () => {
 
   const [dates, setDates] = useState([]);
 
-  // この書き方で一旦揃える
   const defaultPreSentence = {
-    jp: "下記のうちご都合のよろしいお時間はございますでしょうか。\n",
-    en: "Would you be availble in any of the timeslots below?\n",
+    jp: "下記のうちご都合のよろしいお時間はございますでしょうか。",
+    en: "Would you be availble in any of the timeslots below?",
   };
-  // const defaultPreSentence = <Text tid="defaultPreSentence" />;
+
   const initialPreSentence =
     JSON.parse(window.localStorage.getItem("preSentence")) ||
     defaultPreSentence[language];
@@ -76,9 +75,13 @@ const App = () => {
     setDates(updatedDates);
   };
 
-  const resetToDefaultPresentence = () => {
+  const resetToDefaultPresentence = (e) => {
     window.localStorage.removeItem("preSentence");
-    setPreSentence(defaultPreSentence[language]);
+    if (e === undefined) {
+      setPreSentence(defaultPreSentence[language]);
+      return;
+    }
+    setPreSentence(defaultPreSentence[e.target.value]);
   };
 
   const desktopBrowserSize = useMediaQuery("(min-width:600px)");

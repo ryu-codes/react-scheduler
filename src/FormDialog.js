@@ -27,14 +27,14 @@ const FormDialog = ({
     setOpen(false);
   };
 
-  const dialogContentText =
-    language === "jp"
-      ? "日程調整の前に入れる文章を変更できます。"
-      : "Change the sentence as you like.";
-  const textFieldLabel = language === "jp" ? "文章を入力" : "Type a sentence";
-
-  // const dialogContentText = <Text tid="dialogContentText" />;
-  // const textFieldLabel = <Text tid="textFieldLabel" />;
+  const dialogContentText = {
+    jp: "日程調整の前に入れる文章を変更できます。",
+    en: "Change the sentence as you like.",
+  };
+  const textFieldLabel = {
+    jp: "文章を入力",
+    en: "Type a sentence",
+  };
 
   return (
     <div>
@@ -47,12 +47,12 @@ const FormDialog = ({
         aria-labelledby="form-dialog-title"
       >
         <DialogContent>
-          <DialogContentText>{dialogContentText}</DialogContentText>
+          <DialogContentText>{dialogContentText[language]}</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="dialog-text-field"
-            label={textFieldLabel}
+            label={textFieldLabel[language]}
             onChange={(e) => changePreSentence(e.target.value)}
             fullWidth
           />
