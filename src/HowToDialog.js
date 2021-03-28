@@ -39,7 +39,7 @@ const HowToDialog = () => {
       <ol>
         <li>Choose dates to schedule an appointment from the calendar.</li>
         <li>Adjust your availability for each date in the list.</li>
-        <li>Click the COPY button and paste it in email!</li>
+        <li>Click the COPY button and paste it in email! (or anywhere)</li>
       </ol>
     ),
   };

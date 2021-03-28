@@ -18,10 +18,15 @@ const Navbar = ({ setPreSentence, resetToDefaultPresentence }) => {
     resetToDefaultPresentence(val);
   };
 
+  const titleText = {
+    jp: "アポ調整ツール",
+    en: "When Is Good?",
+  };
+
   return (
     <AppBar color={"secondary"} position={"static"} style={{ height: "64px" }}>
       <Toolbar>
-        <Typography style={{ flexGrow: 1 }}>When are you available?</Typography>
+        <Typography style={{ flexGrow: 1 }}>{titleText[language]}</Typography>
         <Select
           value={language}
           onChange={(e) => {
