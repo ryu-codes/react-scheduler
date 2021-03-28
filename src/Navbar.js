@@ -24,7 +24,7 @@ const Navbar = ({ setPreSentence, resetToDefaultPresentence }) => {
   };
 
   return (
-    <AppBar color={"secondary"} position={"static"} style={{ height: "64px" }}>
+    <AppBar color={"primary"} position={"static"} style={{ height: "64px" }}>
       <Toolbar>
         <Typography style={{ flexGrow: 1 }}>{titleText[language]}</Typography>
         <Select
