@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import FormDialog from "./FormDialog";
+import HowToDialog from "./HowToDialog";
 import {
   AppBar,
   Toolbar,
@@ -9,11 +10,7 @@ import {
 } from "@material-ui/core";
 import { LanguageContext } from "./contexts/LanguageContexts";
 
-const Navbar = ({
-  preSentence,
-  changePreSentence,
-  resetToDefaultPresentence,
-}) => {
+const Navbar = ({ setPreSentence, resetToDefaultPresentence }) => {
   const { language, changeLanguage } = useContext(LanguageContext);
 
   const handleLanguageChange = (val) => {
@@ -27,17 +24,19 @@ const Navbar = ({
         <Typography style={{ flexGrow: 1 }}>When are you available?</Typography>
         <Select
           value={language}
-          onChange={handleLanguageChange}
+          onChange={(e) => {
+            handleLanguageChange(e);
+          }}
           style={{ color: "white" }}
         >
           <MenuItem value="jp">日本語</MenuItem>
           <MenuItem value="en">English</MenuItem>
         </Select>
         <FormDialog
-          preSentence={preSentence}
-          changePreSentence={changePreSentence}
+          setPreSentence={setPreSentence}
           resetToDefaultPresentence={resetToDefaultPresentence}
         />
+        <HowToDialog />
       </Toolbar>
     </AppBar>
   );

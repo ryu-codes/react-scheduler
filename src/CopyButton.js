@@ -8,17 +8,16 @@ const CopyButton = () => {
     el.select();
     document.execCommand("copy");
   };
+
   return (
     <div>
       <Button
         onClick={() => copyToClipboard()}
-        // size="large"
         variant="contained"
         color="primary"
         startIcon={<FileCopyOutlinedIcon />}
         fullWidth
         disableElevation
-        // style={{ height: "9.2vh" }}
       >
         COPY
       </Button>

@@ -1,6 +1,6 @@
 import React from "react";
-import { Divider, List } from "@material-ui/core";
 import DateItem from "./DateItem";
+import { Divider, List } from "@material-ui/core";
 
 const DateList = ({ dates, removeDate, updateTime }) => {
   const sortedDates = dates.slice().sort((a, b) => a.date - b.date);

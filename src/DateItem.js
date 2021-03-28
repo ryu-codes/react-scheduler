@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { LanguageContext } from "./contexts/LanguageContexts";
+import { DefaultTimeContext } from "./contexts/DefaultTimeContexts";
 import {
   ListItem,
   ListItemText,
@@ -8,7 +10,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { formatDate } from "./helpers";
-import { LanguageContext } from "./contexts/LanguageContexts";
 import { Delete, Schedule } from "@material-ui/icons";
 
 const useStyles = makeStyles({
@@ -39,23 +40,20 @@ const DateItem = ({
   endHour,
   endMinute,
 }) => {
-  const hourOptions = [
-    "09",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-  ];
-  const minuteOptions = ["00", "15", "30", "45"];
-
   const classes = useStyles();
-
   const { language } = useContext(LanguageContext);
+  const { defaultTime } = useContext(DefaultTimeContext);
+
+  // prettier-ignore
+  const hourOptions = ["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+  const minuteOptions = {
+    // prettier-ignore
+    "05":  ["00","05","10","15","20","25","30","35","40","45","50","55"],
+    10: ["00", "10", "20", "30", "40", "50"],
+    15: ["00", "15", "30", "45"],
+    30: ["00", "30"],
+    60: ["00"],
+  };
 
   const formattedDate = (date) => {
     const [monthFormat, dateFormat, dayOfWeekFormat] = formatDate(date);
@@ -91,11 +89,16 @@ const DateItem = ({
             IconComponent: iconComponent,
           }}
         >
-          {hourOptions.map((op) => (
-            <option value={op} key={op}>
-              {op}
-            </option>
-          ))}
+          {hourOptions
+            .slice(
+              Number(defaultTime["startHour"]),
+              Number(defaultTime["endHour"]) + 1
+            )
+            .map((op) => (
+              <option value={op} key={op}>
+                {op}
+              </option>
+            ))}
         </TextField>
         <span>:</span>
         {/* StartMinute */}
@@ -113,7 +116,7 @@ const DateItem = ({
             IconComponent: iconComponent,
           }}
         >
-          {minuteOptions.map((op) => (
+          {minuteOptions[defaultTime["minutesStep"]].map((op) => (
             <option value={op} key={op}>
               {op}
             </option>
@@ -140,11 +143,16 @@ const DateItem = ({
             IconComponent: iconComponent,
           }}
         >
-          {hourOptions.map((op) => (
-            <option value={op} key={op}>
-              {op}
-            </option>
-          ))}
+          {hourOptions
+            .slice(
+              Number(defaultTime["startHour"]),
+              Number(defaultTime["endHour"]) + 1
+            )
+            .map((op) => (
+              <option value={op} key={op}>
+                {op}
+              </option>
+            ))}
         </TextField>
         <span>:</span>
         {/* EndMinute */}
@@ -162,7 +170,7 @@ const DateItem = ({
             IconComponent: iconComponent,
           }}
         >
-          {minuteOptions.map((op) => (
+          {minuteOptions[defaultTime["minutesStep"]].map((op) => (
             <option value={op} key={op}>
               {op}
             </option>
